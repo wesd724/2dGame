@@ -2,40 +2,52 @@
 using UnityEngine;
 using GoogleMobileAds.Api;
 
+
 public class AdMobManager : MonoBehaviour
 {
-    private BannerView bannerView;
-    
-    public void Start()
-    {
-        #if UNITY_ANDROID
-            string appId = "ca-app-pub-3940256099942544~3347511713";
-        #else
-            string appId = "unexpected_platform";
-        #endif
+    private InterstitialAd interstitial;
 
-        // Initialize the Google Mobile Ads SDK.
-        MobileAds.Initialize(appId);
-
-        this.RequestBanner();
+    void Start() {
+        RequestInterstitial();
     }
 
-    private void RequestBanner()
+    private void RequestInterstitial()
     {
-        #if UNITY_ANDROID
-            string adUnitId = "ca-app-pub-3940256099942544/6300978111";
-        #else
-            string adUnitId = "unexpected_platform";
-        #endif
+#if UNITY_ANDROID
+        string adUnitId = "ca-app-pub-3940256099942544/1033173712";
+#else
+        string adUnitId = "unexpected_platform";
+#endif
 
-        // Create a 320x50 banner at the top of the screen.
-        this.bannerView = new BannerView(adUnitId, AdSize.Banner, AdPosition.Top);
-
+        // Initialize an InterstitialAd.
+        interstitial = new InterstitialAd(adUnitId);
         // Create an empty ad request.
         AdRequest request = new AdRequest.Builder().Build();
+        // Load the interstitial with the request.
+        interstitial.LoadAd(request);
 
-        // Load the banner with the request.
-        this.bannerView.LoadAd(request);
-        bannerView.Show();
+        // Called when the ad is closed.
+        interstitial.OnAdClosed += HandleOnAdClosed;
     }
+
+    public void HandleOnAdClosed(object sender, EventArgs args)
+    {
+        print("HandleAdClosed event received");
+
+        interstitial.Destroy();
+
+        RequestInterstitial();
+    }
+
+    public void ShowInterstitial() {
+        if(!interstitial.IsLoaded())
+        {
+            RequestInterstitial();
+            return;
+        }
+
+        interstitial.Show();
+
+    }
+
 }

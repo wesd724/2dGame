@@ -17,9 +17,12 @@ public class PlayerController : MonoBehaviour {
 	private int left_Value;
 	private int right_Value;
 
+	private AdMobManager adMob;
+
 	void Start () {
 		rigidBody = GetComponent<Rigidbody2D>();
 		ani = GetComponent<Animator>();
+		adMob = GameObject.Find("AdMobManager").GetComponent<AdMobManager>();
  		// Debug.Log("gameObject: " + gameObject);
 		// Debug.Log("this.gameObject: " + this.gameObject);
 		// Debug.Log("this: " + this);
@@ -62,6 +65,7 @@ public class PlayerController : MonoBehaviour {
 		isDead = false;
 		gameObject.SetActive(isDead);
 		GameManager.instance.OnPlayerDead();
+		adMob.ShowInterstitial();
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
