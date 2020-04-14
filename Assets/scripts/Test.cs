@@ -10,4 +10,8 @@ public class Test : MonoBehaviour {
 		print(TestScript_value);
 	}
 
+	public void hello() {
+		print("hellow");
+	}
+
 }

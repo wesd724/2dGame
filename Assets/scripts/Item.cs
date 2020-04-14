@@ -12,10 +12,10 @@ public class Item : MonoBehaviour {
 	private float newSpeed;
 	private SpriteRenderer sprite;
 	private PlayerController playerController;
-	private Enemy enemy;
+	//private Enemy enemy;
 	void Start () {
 		playerController = GameObject.Find("Player").GetComponent<PlayerController>();
-		enemy = GameObject.Find("enemy").GetComponent<Enemy>();
+		//enemy = GameObject.Find("enemy").GetComponent<Enemy>();
 		sprite = GetComponent<SpriteRenderer>();
 		cooldownSlider.gameObject.SetActive(status);
 		newSpeed = playerController.speed;
