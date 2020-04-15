@@ -5,6 +5,7 @@ using GoogleMobileAds.Api;
 
 public class AdMobManager : MonoBehaviour
 {
+    public static int deads = 0;
     private InterstitialAd interstitial;
 
     void Start() {

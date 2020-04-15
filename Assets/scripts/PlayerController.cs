@@ -65,7 +65,11 @@ public class PlayerController : MonoBehaviour {
 		isDead = false;
 		gameObject.SetActive(isDead);
 		GameManager.instance.OnPlayerDead();
-		adMob.ShowInterstitial();
+		AdMobManager.deads++;
+		if(AdMobManager.deads == 3) {
+			adMob.ShowInterstitial();
+			AdMobManager.deads = 0;
+		}
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {

@@ -8,10 +8,14 @@ public class Enemy : MonoBehaviour {
 	// private Rigidbody2D enemyRigidbody;
 	private Transform targetTransform;
 	// private GameObject target;
+	EnemyController enemyController;
+	Item item;
 	void Start () {
 		targetTransform = GameObject.Find("Player").transform;
 		// target = GameObject.Find("Player");
 		// enemyRigidbody = GetComponent<Rigidbody2D>();
+		enemyController = GameObject.Find("enemyController").GetComponent<EnemyController>();
+		item = GameObject.Find("item").GetComponent<Item>();
 	}
 	
 	void Update () {
@@ -24,9 +28,8 @@ public class Enemy : MonoBehaviour {
 		if(other.gameObject.tag == "Player") {
 			PlayerController playercontroller = other.gameObject.GetComponent<PlayerController>();
 			playercontroller.Die();
-			EnemyController enemyController = GameObject.Find("enemyController").GetComponent<EnemyController>();
-			Item item = GameObject.Find("item").GetComponent<Item>();
 			item.CancelInvoke("coolTime");
+			item.StopCoroutine("newItem");
 			enemyController.CancelInvoke("newEnemy");
 		}
 	}

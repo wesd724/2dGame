@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class ChangeScene : MonoBehaviour {
 
+	void Start() {
+		//print(Test.test1);
+	}
 	public void mainScene() {
 		SceneManager.LoadScene("main");
 	}

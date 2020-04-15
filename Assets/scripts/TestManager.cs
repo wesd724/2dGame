@@ -15,12 +15,13 @@ public class TestManager : MonoBehaviour {
 		test_testScript.TestScript_value = 2;
 		test_testScript.GetComponent<Test>().TestScript_value = 3; // 둘다 됨
 		
-		test_testScript2 = GameObject.Find("test").GetComponent<Test>(); // private 경우에는 GameObject.find 메소드로 오브젝트에 접근해야함
+		test_testScript2 = GameObject.Find("test").GetComponent<Test>(); // private 경우에는 GameObject.find 메소드로 다른 오브젝트에 접근해야함
 		test_testScript2.hello();
 		
 		//AddComponent<Rigidbody>(); //Addcomponent 할떄에는 gameObject로 명시해서 접근해야함 
 		gameObject.AddComponent<Rigidbody>();
 		GetComponent<Rigidbody>().velocity = new Vector2(3, 5);
+		
 	}
 	
 

@@ -7,9 +7,6 @@ public class EnemyController : MonoBehaviour {
 	void Start () {
 		InvokeRepeating("newEnemy", 5, Random.Range(8f, 10f));
 	}
-	void Update () {
-		
-	}
 
 	public void newEnemy() {
 		//Debug.Log("적 속도: " + enemy.speed);

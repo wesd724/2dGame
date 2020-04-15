@@ -22,10 +22,6 @@ public class Item : MonoBehaviour {
 		cooldownSlider.value = 100;
 		cooldownTime = Mathf.Ceil(100 / (float)itemcoolTime);
 	}
-	
-	void Update () {
-
-	}
 
 	void OnTriggerEnter2D(Collider2D other) {
 		if(other.gameObject.tag == "Player") {
@@ -33,6 +29,7 @@ public class Item : MonoBehaviour {
 			status = true;
 			sprite.enabled = false;
 			cooldownSlider.gameObject.SetActive(status);
+			CancelInvoke("coolTime");
 			StartCoroutine("newItem");
 		}
 	}
