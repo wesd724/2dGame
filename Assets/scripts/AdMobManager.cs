@@ -8,7 +8,17 @@ public class AdMobManager : MonoBehaviour
     public static int deads = 0;
     private InterstitialAd interstitial;
 
-    void Start() {
+    void Start()
+    {
+#if UNITY_ANDROID
+        string appId = "ca-app-pub-3940256099942544~3347511713";
+#else
+        string appId = "unexpected_platform";
+#endif
+
+        // Initialize the Google Mobile Ads SDK.
+        MobileAds.Initialize(appId);
+
         RequestInterstitial();
     }
 
@@ -40,8 +50,9 @@ public class AdMobManager : MonoBehaviour
         RequestInterstitial();
     }
 
-    public void ShowInterstitial() {
-        if(!interstitial.IsLoaded())
+    public void ShowInterstitial()
+    {
+        if (!interstitial.IsLoaded())
         {
             RequestInterstitial();
             return;
