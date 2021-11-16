@@ -1,31 +1,34 @@
-﻿using System;
+using System;
 using UnityEngine;
 using GoogleMobileAds.Api;
 
 
-public class AdMobManager : MonoBehaviour
-{
+public class AdMobManager : MonoBehaviour {
     public static int deads = 0;
     private InterstitialAd interstitial;
+    private BannerView bannerView;
 
-    void Start()
-    {
-#if UNITY_ANDROID
-        string appId = "ca-app-pub-3940256099942544~3347511713";
-#else
-        string appId = "unexpected_platform";
-#endif
+    void Start() {
+        // #if UNITY_ANDROID
+        //         string appId = "ca-app-pub-3940256099942544~3347511713";
+        // #else
+        //         string appId = "unexpected_platform";
+        // #endif
 
         // Initialize the Google Mobile Ads SDK.
-        MobileAds.Initialize(appId);
+        if(ChangeScene.adInit == 0) {
+            MobileAds.Initialize(initStatus => { });
+            ChangeScene.adInit++;
+        }
 
         RequestInterstitial();
+
+        // RequestBanner();
     }
 
-    private void RequestInterstitial()
-    {
+    private void RequestInterstitial() {
 #if UNITY_ANDROID
-        string adUnitId = "ca-app-pub-3940256099942544/1033173712";
+        string adUnitId = "ca-app-pub-3713536706122475/7789478341";
 #else
         string adUnitId = "unexpected_platform";
 #endif
@@ -41,19 +44,16 @@ public class AdMobManager : MonoBehaviour
         interstitial.OnAdClosed += HandleOnAdClosed;
     }
 
-    public void HandleOnAdClosed(object sender, EventArgs args)
-    {
+    public void HandleOnAdClosed(object sender, EventArgs args) {
         print("HandleAdClosed event received");
 
         interstitial.Destroy();
 
-        RequestInterstitial();
+        //RequestInterstitial();
     }
 
-    public void ShowInterstitial()
-    {
-        if (!interstitial.IsLoaded())
-        {
+    public void ShowInterstitial() {
+        if (!interstitial.IsLoaded()) {
             RequestInterstitial();
             return;
         }
@@ -61,5 +61,20 @@ public class AdMobManager : MonoBehaviour
         interstitial.Show();
 
     }
+
+//     public void RequestBanner() {
+// #if UNITY_ANDROID
+//         string adUnitId = "ca-app-pub-3713536706122475/7789478341";
+// #else
+//         string adUnitId = "unexpected_platform";
+// #endif
+
+
+//         this.bannerView = new BannerView(adUnitId, AdSize.Banner, AdPosition.Top);
+//         // Create an empty ad request.
+//         AdRequest request = new AdRequest.Builder().Build();
+//         // Load the banner with the request.
+//         this.bannerView.LoadAd(request);
+//     }
 
 }

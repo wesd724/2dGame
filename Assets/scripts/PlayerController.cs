@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-	public static bool isDead;
+	public bool isAlive = true;
 	public float speed = 1f;
 	private float x;
 	private float y;
@@ -62,8 +62,8 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void Die() {
-		isDead = false;
-		gameObject.SetActive(isDead);
+		isAlive = false;
+		gameObject.SetActive(isAlive);
 		GameManager.instance.OnPlayerDead();
 		AdMobManager.deads++;
 		if(AdMobManager.deads == 3) {
