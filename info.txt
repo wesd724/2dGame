@@ -1,2 +1,0 @@
-user.keystore: qead2008!
-appID: ca-app-pub-3713536706122475~4178440359
